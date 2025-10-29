@@ -1,4 +1,9 @@
 let selectedId = 0
+let currentStep = 0
+let dataList;
+let choisenData= 0;
+
+const contentList = ["content-one", "content-two", "content-tree", "content-four"];
 
 async function readData() {
   try {
@@ -11,37 +16,41 @@ async function readData() {
   }
 }
 
-function changeBorderColor() {
-  const div = document.getElementById(selectedId)
+function changeBorderColor(id) {
+  const div = document.getElementById(id)
   document.querySelectorAll('.item').forEach((el) => {
-    el.style.borderColor = '#0c0e1c'
+    el.style.borderColor = '#0c0e1c';
   })
-  div.style.borderColor = 'red'
+  if (id !== selectedId) {
+    div.style.borderColor = 'red'
+    selectedId = id;
+    choisenData = dataList[id - 1];
+  } else {
+    div.style.borderColor = '#0c0e1c';
+    selectedId = 0;
+    choisenData= 0;
+  }
 }
 
-async function setData() {
+async function contentOne() {
   try {
-    const dataList = await readData()
+    dataList = await readData()
     const content = document.getElementById('content-one')
+
     dataList.forEach((element) => {
       const card = document.createElement('div')
       card.id = `${element.id}`
       card.className =
         'item m-5 bg-black/54 h-fit rounded-3xl border-[#0c0e1c]  border-4 overflow-hidden'
       card.addEventListener('click', () => {
-        selectedId = card.id
-        changeBorderColor()
-        console.log(card.id)
+        changeBorderColor(card.id)
       })
       card.innerHTML = divCard(element)
       content.appendChild(card)
     })
-  } catch (error) {}
+    addEventListenerToBtns()
+  } catch (error) { }
 }
-
-
-
-
 
 function divCard({ cover, name, location, date, places, price }) {
   return `
@@ -82,4 +91,68 @@ function divCard({ cover, name, location, date, places, price }) {
   `
 }
 
-setData()
+async function contentTwo() {
+}
+
+async function contentTree() {
+}
+
+async function contentFour() {
+}
+
+
+function addEventListenerToBtns() {
+  const btnPrev = document.querySelector(".btns > .btn-prev")
+  const btnNext = document.querySelector(".btns > .btn-next")
+  btnPrev.addEventListener("click", () => {
+    console.log("Prev button");
+    if (currentStep === 0) {
+      console.log("you cannot go back");
+    } else {
+      for (let index = 0; index <= currentStep; index++) {
+        document.querySelector(`.${contentList[index]}`).style.display = "none";
+      }
+      currentStep--;
+      const div = document.querySelector(`.${contentList[currentStep]}`);
+      div.style.display = "block";
+      stepColorChanger(0);
+    }
+  },
+  );
+
+  btnNext.addEventListener("click", () => {
+    if (currentStep >= 3 || selectedId === 0) {
+      console.log("you cannot go next");
+    } else {
+      for (let index = 0; index <= currentStep; index++) {
+        document.querySelector(`.${contentList[index]}`).style.display = "none";
+      }
+      currentStep++;
+      const div = document.querySelector(`.${contentList[currentStep]}`);
+      div.style.display = "block";
+      stepColorChanger(1);
+    }
+  },
+  );
+}
+
+function stepColorChanger(type = 1) {
+  const stepNumber = document.querySelector(".step-number > span")
+  const steps = document.querySelectorAll(".step");
+  if (type) {
+    stepNumber.textContent = currentStep + 1;
+    for (let index = 0; index <= currentStep; index++) {
+      let step = steps[index]
+      step.style.backgroundColor = "red";
+    }
+  } else {
+    stepNumber.textContent = currentStep + 1;
+    let step = steps[currentStep + 1]
+    step.style.backgroundColor = "white";
+
+  }
+}
+
+
+
+contentOne()
