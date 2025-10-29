@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "cover": "assets/hallowen.jpg",
+    "name": "Hallowen",
+    "location": "laughTile, nr 487 black Hole street",
+    "date": " 25/10/2025",
+    "places": "15",
+    "price": "200"
+  },
+  {
+    "id": "2",
+    "cover": "assets/hallowen.jpg",
+    "name": "Hallowen",
+    "location": "laughTile, nr 487 black Hole street",
+    "date": " 25/10/2025",
+    "places": "15",
+    "price": "200"
+  },
+  {
+    "id": "3",
+    "cover": "assets/hallowen.jpg",
+    "name": "Hallowen",
+    "location": "laughTile, nr 487 black Hole street",
+    "date": " 25/10/2025",
+    "places": "15",
+    "price": "200"
+  },
+  {
+    "id": "4",
+    "cover": "assets/hallowen.jpg",
+    "name": "Hallowen",
+    "location": "laughTile, nr 487 black Hole street",
+    "date": " 25/10/2025",
+    "places": "15",
+    "price": "200"
+  }
+]
