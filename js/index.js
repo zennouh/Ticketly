@@ -39,6 +39,8 @@ async function setData() {
   } catch (error) {}
 }
 
+
+
 function divCard({ cover, name, location, date, places, price }) {
   return `
     <div  class="bgimg grid items-end">

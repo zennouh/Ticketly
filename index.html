@@ -5,33 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="src/output.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="index.js" defer></script>
+    <script src="js/index.js" defer></script>
 
     <title>Ticketly</title>
   </head>
   <body>
-    <main class="py-10 bg-[#151932] h-vh">
-      <div class="stepNumber text-white text-center text-1xl">
-        Step <span>1</span>/4
-      </div>
-      <div class="steps my-5 px-10 flex justify-between">
-        <div class="step rounded-full h-2 w-[23%] bg-red-800"></div>
-        <div class="step rounded-full h-2 w-[23%] bg-[#D9D9D9]"></div>
-        <div class="step rounded-full h-2 w-[23%] bg-[#D9D9D9]"></div>
-        <div class="step rounded-full h-2 w-[23%] bg-[#D9D9D9]"></div>
-      </div>
-      <div class="step-name text-3xl text-center text-white bold">
-        Choix de l’événement
-      </div>
+    <main class="py-10 bg-[#151932] h-vh ">
+      <div class="main-content">
+        <div class="step-section">
+          <div class="step-number text-white text-center text-1xl">
+            Step <span>1</span>/4
+          </div>
+          <div class="steps my-5 px-10 flex justify-between">
+            <div class="step rounded-full h-2 w-[23%] bg-red-800"></div>
+            <div class="step rounded-full h-2 w-[23%] bg-[#D9D9D9]"></div>
+            <div class="step rounded-full h-2 w-[23%] bg-[#D9D9D9]"></div>
+            <div class="step rounded-full h-2 w-[23%] bg-[#D9D9D9]"></div>
+          </div>
+        </div>
+        <div class="step-name text-3xl text-center text-white bold">
+          Choix de l’événement
+        </div>
 
-      <div class="contents">
-        <div
-          id="content-one"
-          class="content-one grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-        ></div>
-        <div class="content-two"></div>
-        <div class="content-tree"></div>
-        <div class="content-four"></div>
+        <div class="contents">
+          <div
+            id="content-one"
+            class="content-one grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          ></div>
+          <div class="content-two"></div>
+          <div class="content-tree"></div>
+          <div class="content-four"></div>
+        </div>
+      </div>
+      <div
+        class="btns w-full px-10 py-5 flex justify-between fixed z-20 top-5 bottom-0 left-0 items-end"
+      >
+        <div class="prev bg-gray-500 rounded-2xl px-1.5 py-1">Prev</div>
+        <div class="next bg-red-500 rounded-2xl px-1.5 py-1">Suivant</div>
       </div>
     </main>
   </body>
