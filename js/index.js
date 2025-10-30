@@ -175,11 +175,39 @@ function addEventListenerToBtns() {
               numberOfbillet = value;
               const div = document.querySelector(`.${contentList[currentStep]}`);
               div.style.display = "flex";
+
               break;
             }
           }
         case 2:
           {
+            // for (let index = 0; index < numberOfbillet; index++) {
+              
+            // }
+            
+            const form = document.getElementById('myForm');
+            const name = form.name.trim()
+            const lastName = form.lastName.trim().lowerCase()
+            const email = form.email.trim()
+            const mobile = form.mobile.trim()
+
+            const emailreqexp = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.(com|net|org)$/
+            const mobilereqexp = /^0(6|7)\d{8}$/
+            const namereqexp = /^[a-zA-Z]$/
+
+            if (emailreqexp.test(email) && mobilereqexp.test(mobile) && namereqexp.test(name) && namereqexp.test(lastName)) {
+              form.reset();
+              
+            }
+            // for (let index = 0; index <= currentStep; index++) {
+            //   document.querySelector(`.${contentList[index]}`).style.display = "none";
+            // }
+            // currentStep++;
+            // stepColorChanger(1);
+            // numberOfbillet = value;
+            // const div = document.querySelector(`.${contentList[currentStep]}`);
+            // div.style.display = "flex";
+            break;
             // currentStep++;
             // stepColorChanger(1);
             break;
