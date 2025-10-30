@@ -1,7 +1,10 @@
 let selectedId = 0
 let currentStep = 0
 let dataList;
-let choisenData= 0;
+let choisenData = 0;
+//////////////////////////
+let choisenPlace = 0;
+let numberOfbillet = 0;
 
 const contentList = ["content-one", "content-two", "content-tree", "content-four"];
 
@@ -28,28 +31,35 @@ function changeBorderColor(id) {
   } else {
     div.style.borderColor = '#0c0e1c';
     selectedId = 0;
-    choisenData= 0;
+    choisenData = 0;
   }
 }
 
 async function contentOne() {
+  const content = document.getElementById('content-one')
   try {
     dataList = await readData()
-    const content = document.getElementById('content-one')
+    const cardContainer = document.createElement("div");
+    cardContainer.className = "grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 
     dataList.forEach((element) => {
       const card = document.createElement('div')
       card.id = `${element.id}`
       card.className =
-        'item m-5 bg-black/54 h-fit rounded-3xl border-[#0c0e1c]  border-4 overflow-hidden'
+        'item  my-5 bg-black/54 h-fit rounded-3xl border-[#0c0e1c]  border-4 overflow-hidden'
       card.addEventListener('click', () => {
         changeBorderColor(card.id)
       })
       card.innerHTML = divCard(element)
-      content.appendChild(card)
+      cardContainer.appendChild(card)
     })
+    content.appendChild(cardContainer)
     addEventListenerToBtns()
-  } catch (error) { }
+  } catch (error) {
+    const card = document.createElement('div')
+    card.innerHTML = `<h1>Error While loading data</h1>`
+    content.appendChild()
+  }
 }
 
 function divCard({ cover, name, location, date, places, price }) {
@@ -121,16 +131,73 @@ function addEventListenerToBtns() {
   );
 
   btnNext.addEventListener("click", () => {
-    if (currentStep >= 3 || selectedId === 0) {
+    if (currentStep >= 3) {
       console.log("you cannot go next");
     } else {
-      for (let index = 0; index <= currentStep; index++) {
-        document.querySelector(`.${contentList[index]}`).style.display = "none";
+
+
+      switch (currentStep) {
+        case 0: {
+          if (selectedId === 0) {
+            console.log("you cannot go next, i need toast or sneakbar");
+            break;
+          } else {
+            for (let index = 0; index <= currentStep; index++) {
+              document.querySelector(`.${contentList[index]}`).style.display = "none";
+            }
+            currentStep++;
+            stepColorChanger(1);
+
+            const div = document.querySelector(`.${contentList[currentStep]}`);
+            div.style.display = "flex";
+            break;
+          }
+
+        }
+        case 1:
+          {
+
+            const value = Number(document.getElementById("Ncounter").value) || 0;
+
+            const resetPlace = Number(choisenData.places);
+
+            console.log("le valur est: ", value);
+            console.log("le resetPlace est: ", resetPlace);
+            if (resetPlace < value) {
+              console.log("no enough places");
+              break;
+            } else {
+              for (let index = 0; index <= currentStep; index++) {
+                document.querySelector(`.${contentList[index]}`).style.display = "none";
+              }
+              currentStep++;
+              stepColorChanger(1);
+              numberOfbillet = value;
+              const div = document.querySelector(`.${contentList[currentStep]}`);
+              div.style.display = "flex";
+              break;
+            }
+          }
+        case 2:
+          {
+            // currentStep++;
+            // stepColorChanger(1);
+            break;
+          }
+        case 3:
+          {
+            // currentStep++;
+            // stepColorChanger(1);
+            break;
+          }
+        default:
+          {
+
+            break;
+          }
       }
-      currentStep++;
-      const div = document.querySelector(`.${contentList[currentStep]}`);
-      div.style.display = "block";
-      stepColorChanger(1);
+
+
     }
   },
   );
@@ -151,6 +218,10 @@ function stepColorChanger(type = 1) {
     step.style.backgroundColor = "white";
 
   }
+}
+
+function contenTwoNextFunction() {
+
 }
 
 
