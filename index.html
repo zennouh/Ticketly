@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="src/output.css"> -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="index.css" />
     <script src="js/index.js" defer></script>
 
@@ -12,9 +17,9 @@
   </head>
 
   <body class="bg-[#151932] box-border">
-    <main class="py-10 bg-[#151932] sm:py-15 md:px-11 lg:px-25">
+    <main class="py-10 bg-[#151932] px-2 sm:py-15 md:px-11 lg:px-45">
       <div class="main-content">
-        <div class="step-section">
+        <div class="step-section lg:mx-25">
           <div class="step-number text-white text-center text-1xl">
             Step <span>1</span>/4
           </div>
@@ -52,13 +57,15 @@
               />
             </div>
           </div>
-          <div class="content-tree hidden flex flex-col">
+          <div class="content-tree flex flex-col hidden">
             <div class="step-name text-3xl text-center text-white bold">
               Ajout des participants
             </div>
-            <div class="flex flex-col items-center gap-5 ">
+            <div
+              class="my-5 lg:mx-25 flex flex-col lg:flex-row lg:items-stretch items-center gap-5"
+            >
               <div
-                class="inputs  p-5 rounded-2xl text-white bg-black/75 h-fit"
+                class="inputs p-5 rounded-2xl text-white bg-black/75 h-fit w-[100%]"
               >
                 <form id="myForm" class="flex flex-col gap-5">
                   <div class="name flex flex-col">
@@ -96,7 +103,7 @@
                     <label for="mobile">Name</label>
                     <input
                       class="bg-[#232944] text-white placeholder-grey-500 px-10 py-5 rounded-2xl focus:outline-1 focus:outline-offset-2 focus:outline-blue-300"
-                      type="number"
+                      type="text"
                       name="mobile"
                       id="mobile"
                       required
@@ -111,14 +118,19 @@
                   </div>
                 </form>
               </div>
-              <div class="people">
-                <div
-                  class="particip w-full h-30 bg-white/75 rounded-2xl"
-                >hewfauhweufhuiwehgH</div>
+              <div
+                class="people p-5 rounded-2xl text-white bg-black/75 w-[100%] flex flex-col gap-5 items-center place-center"
+              >
+                <div class="nodataele w-[50%] lg:w-[45%] m-auto">
+                  <img  class="lg:w-[55%] m-auto" src="assets/noimg.png" alt="no participants" />
+                  <div class="text-bold text-lg w-fit">No participants</div>
+                </div>
+               
+               
               </div>
             </div>
           </div>
-          <div class="content-four">type</div>
+          <div class="content-four hidden">type</div>
         </div>
       </div>
       <div

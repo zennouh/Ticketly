@@ -5,6 +5,7 @@ let choisenData = 0
 //////////////////////////
 let choisenPlace = 0
 let numberOfbillet = 0
+let participList = [];
 
 const contentList = [
   'content-one',
@@ -107,16 +108,20 @@ function divCard({ cover, name, location, date, places, price }) {
   `
 }
 
-async function contentTwo() {}
+async function contentTwo() { }
 
-async function contentTree() {}
+async function contentTree() { }
 
-async function contentFour() {}
+async function contentFour() { }
 
 function submitBtnListener() {
   const form = document.getElementById('myForm')
-  const d = document.getElementsByClassName('people')
+  const parti = document.querySelector(".people");
+
   form.addEventListener('submit', (event) => {
+    console.log("we click on submit");
+    const noDataElement = document.querySelector(".nodataele");
+
     event.preventDefault()
     try {
       const name = document.getElementById('name').value.trim()
@@ -124,9 +129,15 @@ function submitBtnListener() {
       const email = document.getElementById('email').value.trim()
       const mobile = document.getElementById('mobile').value.trim()
 
+      const data = { name, lastName, email, mobile };
+
       const emailreqexp = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.(com|net|org)$/
       const mobilereqexp = /^0(6|7)\d{8}$/
-      const namereqexp = /^[a-zA-Z]$/
+      const namereqexp = /^[a-zA-Z]+$/
+      console.log(emailreqexp.test(email),
+        mobilereqexp.test(mobile),
+        namereqexp.test(name),
+        namereqexp.test(lastName));
 
       if (
         emailreqexp.test(email) &&
@@ -134,12 +145,49 @@ function submitBtnListener() {
         namereqexp.test(name) &&
         namereqexp.test(lastName)
       ) {
-        form.reset()
+        noDataElement.style.display = "none";
+        if (numberOfbillet == 0) {
+          // call next btn
+          console.log("no parti left");
+
+          return;
+        } else {
+          const resultDiv = participantCard(data);
+          parti.appendChild(resultDiv);
+          participList.push(data);
+          form.reset()
+          numberOfbillet--;
+          document.getElementById("delete").addEventListener('click', ()=>{
+            parti.removeChild(resultDiv);
+            numberOfbillet++;
+            if(parti.children.length == 0){
+               noDataElement.style.display = "block";
+            }
+          });
+        }
+
       }
     } catch (error) {
       console.log(error.message || error)
     }
   })
+}
+
+function participantCard(data) {
+  const div = document.createElement("div");
+  div.className = "particip flex justify-between items-center p-3 w-full bg-[#151932] rounded-2xl";
+  div.innerHTML = `  <div class="info w-[75%]">
+                    <div>Nom: ${data.name}</div>
+                    <div>Prenom: ${data.lastName}</div>
+                    <div>E-mail: ${data.email}</div>
+                    <div>Telephone: ${data.mobile}</div>
+                  </div>
+                  <div id="delete" class="delete  bg-red-800 px-3 py-1 rounded-lg">
+                    <i class="fa-solid fa-trash"></i>
+                  </div>`;
+
+  return div;
+
 }
 
 function addEventListenerToBtns() {
@@ -273,6 +321,6 @@ function stepColorChanger(type = 1) {
   }
 }
 
-function contenTwoNextFunction() {}
+function contenTwoNextFunction() { }
 
 contentOne()
