@@ -1,12 +1,17 @@
 let selectedId = 0
 let currentStep = 0
-let dataList;
-let choisenData = 0;
+let dataList
+let choisenData = 0
 //////////////////////////
-let choisenPlace = 0;
-let numberOfbillet = 0;
+let choisenPlace = 0
+let numberOfbillet = 0
 
-const contentList = ["content-one", "content-two", "content-tree", "content-four"];
+const contentList = [
+  'content-one',
+  'content-two',
+  'content-tree',
+  'content-four',
+]
 
 async function readData() {
   try {
@@ -22,16 +27,16 @@ async function readData() {
 function changeBorderColor(id) {
   const div = document.getElementById(id)
   document.querySelectorAll('.item').forEach((el) => {
-    el.style.borderColor = '#0c0e1c';
+    el.style.borderColor = '#0c0e1c'
   })
   if (id !== selectedId) {
     div.style.borderColor = 'red'
-    selectedId = id;
-    choisenData = dataList[id - 1];
+    selectedId = id
+    choisenData = dataList[id - 1]
   } else {
-    div.style.borderColor = '#0c0e1c';
-    selectedId = 0;
-    choisenData = 0;
+    div.style.borderColor = '#0c0e1c'
+    selectedId = 0
+    choisenData = 0
   }
 }
 
@@ -39,8 +44,9 @@ async function contentOne() {
   const content = document.getElementById('content-one')
   try {
     dataList = await readData()
-    const cardContainer = document.createElement("div");
-    cardContainer.className = "grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    const cardContainer = document.createElement('div')
+    cardContainer.className =
+      'grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
 
     dataList.forEach((element) => {
       const card = document.createElement('div')
@@ -58,7 +64,7 @@ async function contentOne() {
   } catch (error) {
     const card = document.createElement('div')
     card.innerHTML = `<h1>Error While loading data</h1>`
-    content.appendChild()
+    content.appendChild(card)
   }
 }
 
@@ -101,157 +107,172 @@ function divCard({ cover, name, location, date, places, price }) {
   `
 }
 
-async function contentTwo() {
-}
+async function contentTwo() {}
 
-async function contentTree() {
-}
+async function contentTree() {}
 
-async function contentFour() {
-}
+async function contentFour() {}
 
+function submitBtnListener() {
+  const form = document.getElementById('myForm')
+  const d = document.getElementsByClassName('people')
+  form.addEventListener('submit', (event) => {
+    event.preventDefault()
+    try {
+      const name = document.getElementById('name').value.trim()
+      const lastName = document.getElementById('lastname').value.trim()
+      const email = document.getElementById('email').value.trim()
+      const mobile = document.getElementById('mobile').value.trim()
+
+      const emailreqexp = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.(com|net|org)$/
+      const mobilereqexp = /^0(6|7)\d{8}$/
+      const namereqexp = /^[a-zA-Z]$/
+
+      if (
+        emailreqexp.test(email) &&
+        mobilereqexp.test(mobile) &&
+        namereqexp.test(name) &&
+        namereqexp.test(lastName)
+      ) {
+        form.reset()
+      }
+    } catch (error) {
+      console.log(error.message || error)
+    }
+  })
+}
 
 function addEventListenerToBtns() {
-  const btnPrev = document.querySelector(".btns > .btn-prev")
-  const btnNext = document.querySelector(".btns > .btn-next")
-  btnPrev.addEventListener("click", () => {
-    console.log("Prev button");
+  const btnPrev = document.querySelector('.btns > .btn-prev')
+  const btnNext = document.querySelector('.btns > .btn-next')
+  btnPrev.addEventListener('click', () => {
+    console.log('Prev button')
     if (currentStep === 0) {
-      console.log("you cannot go back");
+      console.log('you cannot go back')
     } else {
       for (let index = 0; index <= currentStep; index++) {
-        document.querySelector(`.${contentList[index]}`).style.display = "none";
+        document.querySelector(`.${contentList[index]}`).style.display = 'none'
       }
-      currentStep--;
-      const div = document.querySelector(`.${contentList[currentStep]}`);
-      div.style.display = "block";
-      stepColorChanger(0);
+      currentStep--
+      const div = document.querySelector(`.${contentList[currentStep]}`)
+      div.style.display = 'block'
+      stepColorChanger(0)
     }
-  },
-  );
+  })
 
-  btnNext.addEventListener("click", () => {
+  btnNext.addEventListener('click', (event) => {
     if (currentStep >= 3) {
-      console.log("you cannot go next");
+      console.log('you cannot go next')
     } else {
-
-
       switch (currentStep) {
         case 0: {
           if (selectedId === 0) {
-            console.log("you cannot go next, i need toast or sneakbar");
-            break;
+            console.log('you cannot go next, i need toast or sneakbar')
+            break
           } else {
             for (let index = 0; index <= currentStep; index++) {
-              document.querySelector(`.${contentList[index]}`).style.display = "none";
+              document.querySelector(`.${contentList[index]}`).style.display =
+                'none'
             }
-            currentStep++;
-            stepColorChanger(1);
+            currentStep++
+            stepColorChanger(1)
 
-            const div = document.querySelector(`.${contentList[currentStep]}`);
-            div.style.display = "flex";
-            break;
+            const div = document.querySelector(`.${contentList[currentStep]}`)
+            div.style.display = 'flex'
+
+            break
           }
-
         }
-        case 1:
-          {
+        case 1: {
+          const value = Number(document.getElementById('Ncounter').value) || 0
 
-            const value = Number(document.getElementById("Ncounter").value) || 0;
+          const resetPlace = Number(choisenData.places)
 
-            const resetPlace = Number(choisenData.places);
-
-            console.log("le valur est: ", value);
-            console.log("le resetPlace est: ", resetPlace);
-            if (resetPlace < value) {
-              console.log("no enough places");
-              break;
-            } else {
-              for (let index = 0; index <= currentStep; index++) {
-                document.querySelector(`.${contentList[index]}`).style.display = "none";
-              }
-              currentStep++;
-              stepColorChanger(1);
-              numberOfbillet = value;
-              const div = document.querySelector(`.${contentList[currentStep]}`);
-              div.style.display = "flex";
-
-              break;
+          console.log('le valur est: ', value)
+          console.log('le resetPlace est: ', resetPlace)
+          if (resetPlace < value) {
+            console.log('no enough places')
+            break
+          } else {
+            for (let index = 0; index <= currentStep; index++) {
+              document.querySelector(`.${contentList[index]}`).style.display =
+                'none'
             }
+            currentStep++
+            stepColorChanger(1)
+            numberOfbillet = value
+            const div = document.querySelector(`.${contentList[currentStep]}`)
+            div.style.display = 'flex'
+            submitBtnListener()
+            break
           }
-        case 2:
-          {
-            // for (let index = 0; index < numberOfbillet; index++) {
-              
-            // }
-            
-            const form = document.getElementById('myForm');
-            const name = form.name.trim()
-            const lastName = form.lastName.trim().lowerCase()
-            const email = form.email.trim()
-            const mobile = form.mobile.trim()
+        }
+        case 2: {
+          // for (let index = 0; index < numberOfbillet; index++) {
 
-            const emailreqexp = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.(com|net|org)$/
-            const mobilereqexp = /^0(6|7)\d{8}$/
-            const namereqexp = /^[a-zA-Z]$/
+          // }
 
-            if (emailreqexp.test(email) && mobilereqexp.test(mobile) && namereqexp.test(name) && namereqexp.test(lastName)) {
-              form.reset();
-              
-            }
-            // for (let index = 0; index <= currentStep; index++) {
-            //   document.querySelector(`.${contentList[index]}`).style.display = "none";
-            // }
-            // currentStep++;
-            // stepColorChanger(1);
-            // numberOfbillet = value;
-            // const div = document.querySelector(`.${contentList[currentStep]}`);
-            // div.style.display = "flex";
-            break;
-            // currentStep++;
-            // stepColorChanger(1);
-            break;
-          }
-        case 3:
-          {
-            // currentStep++;
-            // stepColorChanger(1);
-            break;
-          }
-        default:
-          {
+          // const form = document.getElementById('myForm')
+          // const name = form.name.trim()
+          // const lastName = form.lastName.trim().lowerCase()
+          // const email = form.email.trim()
+          // const mobile = form.mobile.trim()
 
-            break;
-          }
+          // const emailreqexp =
+          //   /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.(com|net|org)$/
+          // const mobilereqexp = /^0(6|7)\d{8}$/
+          // const namereqexp = /^[a-zA-Z]$/
+
+          // if (
+          //   emailreqexp.test(email) &&
+          //   mobilereqexp.test(mobile) &&
+          //   namereqexp.test(name) &&
+          //   namereqexp.test(lastName)
+          // ) {
+          //   form.reset()
+          // }
+          // for (let index = 0; index <= currentStep; index++) {
+          //   document.querySelector(`.${contentList[index]}`).style.display = "none";
+          // }
+          // currentStep++;
+          // stepColorChanger(1);
+          // numberOfbillet = value;
+          // const div = document.querySelector(`.${contentList[currentStep]}`);
+          // div.style.display = "flex";
+
+          // currentStep++;
+          // stepColorChanger(1);
+          break
+        }
+        case 3: {
+          // currentStep++;
+          // stepColorChanger(1);
+          break
+        }
+        default: {
+          break
+        }
       }
-
-
     }
-  },
-  );
+  })
 }
 
 function stepColorChanger(type = 1) {
-  const stepNumber = document.querySelector(".step-number > span")
-  const steps = document.querySelectorAll(".step");
+  const stepNumber = document.querySelector('.step-number > span')
+  const steps = document.querySelectorAll('.step')
   if (type) {
-    stepNumber.textContent = currentStep + 1;
+    stepNumber.textContent = currentStep + 1
     for (let index = 0; index <= currentStep; index++) {
       let step = steps[index]
-      step.style.backgroundColor = "red";
+      step.style.backgroundColor = 'red'
     }
   } else {
-    stepNumber.textContent = currentStep + 1;
+    stepNumber.textContent = currentStep + 1
     let step = steps[currentStep + 1]
-    step.style.backgroundColor = "white";
-
+    step.style.backgroundColor = 'white'
   }
 }
 
-function contenTwoNextFunction() {
-
-}
-
-
+function contenTwoNextFunction() {}
 
 contentOne()
