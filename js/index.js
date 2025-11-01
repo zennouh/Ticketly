@@ -1,8 +1,8 @@
 let selectedId = 0
 let currentStep = 0
 let dataList
-let choisenData = 0
 //////////////////////////
+let choisenData = 0
 let choisenPlace = 0
 let numberOfbillet = 0
 let participList = []
@@ -45,12 +45,17 @@ async function contentOne() {
   const content = document.getElementById('content-one')
   try {
     dataList = await readData()
+    console.log('done')
+
     const cardContainer = document.createElement('div')
+    console.log('done2')
     cardContainer.className =
       'grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
-
     dataList.forEach((element) => {
+      console.log('done3')
       const card = document.createElement('div')
+      console.log('done4')
+
       card.id = `${element.id}`
       card.className =
         'item  my-5 bg-black/54 h-fit rounded-3xl border-[#0c0e1c]  border-4 overflow-hidden'
@@ -63,9 +68,9 @@ async function contentOne() {
     content.appendChild(cardContainer)
     addEventListenerToBtns()
   } catch (error) {
-    const card = document.createElement('div')
-    card.innerHTML = `<h1>Error While loading data</h1>`
-    content.appendChild(card)
+    // const card = document.createElement('div')
+    // card.innerHTML = `<h1>Error While loading data</h1>`
+    // content.appendChild(card)
   }
 }
 
@@ -107,12 +112,6 @@ function divCard({ cover, name, location, date, places, price }) {
             </div>
   `
 }
-
-async function contentTwo() {}
-
-async function contentTree() {}
-
-async function contentFour() {}
 
 function submitBtnListener() {
   const form = document.getElementById('myForm')
@@ -192,7 +191,8 @@ function participantCard(data) {
                   </div>
                   <div id="delete-${data.id}" class="delete-${data.id}  bg-red-800 px-3 py-1 rounded-lg">
                     <i class="fa-solid fa-trash"></i>
-                  </div>`
+                  </div>
+                  `
 
   return div
 }
@@ -216,7 +216,7 @@ function addEventListenerToBtns() {
   })
 
   btnNext.addEventListener('click', (event) => {
-    if (currentStep >= 3) {
+    if (currentStep >= 4) {
       console.log('you cannot go next')
     } else {
       switch (currentStep) {
@@ -264,46 +264,41 @@ function addEventListenerToBtns() {
         }
         case 2: {
           console.log(numberOfbillet)
+          if (numberOfbillet == 0) {
+            for (let index = 0; index <= currentStep; index++) {
+              document.querySelector(`.${contentList[index]}`).style.display =
+                'none'
+            }
+            currentStep++
+            console.log('the current step is ', currentStep)
 
-          // for (let index = 0; index < numberOfbillet; index++) {
+            stepColorChanger(1)
+            const div = document.querySelector(`.${contentList[currentStep]}`)
+            div.style.display = 'flex'
+          } else {
+            console.log('you need to fill all people')
+          }
 
-          // }
-
-          // const form = document.getElementById('myForm')
-          // const name = form.name.trim()
-          // const lastName = form.lastName.trim().lowerCase()
-          // const email = form.email.trim()
-          // const mobile = form.mobile.trim()
-
-          // const emailreqexp =
-          //   /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.(com|net|org)$/
-          // const mobilereqexp = /^0(6|7)\d{8}$/
-          // const namereqexp = /^[a-zA-Z]$/
-
-          // if (
-          //   emailreqexp.test(email) &&
-          //   mobilereqexp.test(mobile) &&
-          //   namereqexp.test(name) &&
-          //   namereqexp.test(lastName)
-          // ) {
-          //   form.reset()
-          // }
-          // for (let index = 0; index <= currentStep; index++) {
-          //   document.querySelector(`.${contentList[index]}`).style.display = "none";
-          // }
-          // currentStep++;
-          // stepColorChanger(1);
-          // numberOfbillet = value;
-          // const div = document.querySelector(`.${contentList[currentStep]}`);
-          // div.style.display = "flex";
-
-          // currentStep++;
-          // stepColorChanger(1);
-          break
+          break;
         }
         case 3: {
-          // currentStep++;
-          // stepColorChanger(1);
+          console.log('step 3 ==============')
+
+          const eventConainer = document.getElementsByClassName('event')[0]
+          const eventDiv = document.createElement('div')
+          eventDiv.className = 'info bg-black/75 rounded-2xl overflow-hidden'
+          eventDiv.innerHTML = `
+          <img src="${choisenData.cover}" alt="hallowen" class="" />
+                <div class="info w-[75%] text-white p-5">
+                  <div>Nom: ${choisenData.name}</div>
+                  <div>Date: ${choisenData.date}</div>
+                  <div>Price: ${choisenData.price}</div>
+                  <div>reset: ${choisenData.places}</div>
+                  <div>place: ${choisenData.location}</div>
+                </div>
+               
+                `
+          eventConainer.appendChild(eventDiv)
           break
         }
         default: {
