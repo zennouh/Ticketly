@@ -245,6 +245,7 @@ function addEventListenerToBtns() {
           console.log('le valur est: ', value)
           console.log('le resetPlace est: ', resetPlace)
           if (resetPlace < value) {
+            alert("Nombre de billets demandé supérieur aux places disponibles");
             console.log('no enough places')
             break
           } else {
