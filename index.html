@@ -133,28 +133,22 @@
             </div>
           </div>
           <div class="content-four hidden flex-col lg:flex-row">
-            <div class="event mb-5">
+            <div class="event mb-5 lg:w-[25%] lg:grow">
               <div class="text-center mb-3 text-2xl text-white">Event</div>
-              <!-- <div class="info bg-black/75 rounded-2xl overflow-hidden"></div> -->
             </div>
-            <div class="partic-event mb-5">
+            <div class="partic-event mb-5 lg:w-[25%] lg:grow">
               <div class="text-center mb-3 text-2xl text-white ">
                 Participants
               </div>
-              <div class="partic bg-black/75 text-white p-5 rounded-2xl">
-                <div>Nom: ${data.name}</div>
-                <div>Prenom: ${data.lastName}</div>
-                <div>E-mail: ${data.email}</div>
-                <div>Telephone: ${data.mobile}</div>
-                <hr />
-              </div>
+              <div class="partic-event-p text-white p-5 bg-black/75 rounded-2xl overflow-hidden"></div>
+             
             </div>
-            <div class="confirmer mb-5">
+            <div class="confirmer mb-5 lg:w-[25%] lg:grow">
               <div class="text-center mb-3 text-2xl text-white">Le prix</div>
-              <div class="reservation bg-black/75 text-white p-5 rounded-2xl">
-                <div class="totalPrix"></div>
-                <div class="return"></div>
-                <div class="reservation">Confirmer la réservation</div>
+              <div class="reservation bg-black/75 text-white p-5 rounded-2xl flex flex-col items-center gap-3">
+                <div class="totalPrix bg-green-700 px-7 py-3 rounded-xl"></div>
+                <div class="return bg-white-700 px-7 py-3 rounded-xl">return</div>
+                <div class="reservation bg-red-700 px-7 py-3 rounded-xl">Confirmer la réservation</div>
               </div>
             </div>
           </div>

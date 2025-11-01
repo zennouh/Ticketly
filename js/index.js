@@ -154,15 +154,14 @@ function submitBtnListener() {
 
           return
         } else {
+          form.reset()
           const resultDiv = participantCard(data)
           parti.appendChild(resultDiv)
           participList.push(data)
-          form.reset()
           numberOfbillet--
           document
             .getElementById(`delete-${data.id}`)
             .addEventListener('click', () => {
-              console.log(parti.children.length, participList.length)
               parti.removeChild(resultDiv)
               numberOfbillet++
               console.log(parti.children.length)
@@ -170,7 +169,7 @@ function submitBtnListener() {
                 noDataElement.style.display = 'block'
                 id = 0
               }
-            })
+            },)
         }
       }
     } catch (error) {
@@ -275,19 +274,46 @@ function addEventListenerToBtns() {
             stepColorChanger(1)
             const div = document.querySelector(`.${contentList[currentStep]}`)
             div.style.display = 'flex'
+            if (currentStep == 3) {
+              console.log(participList.length);
+              document.getElementsByClassName("btns")[0].style.display = "none"
+              document.getElementsByClassName("reservation")[0].addEventListener("click", () => {
+                window.alert("felecitation");
+
+                currentStep = 0;
+                for (let index = 0; index <= 3; index++) {
+                  document.querySelector(`.${contentList[index]}`).style.display = 'none'
+                }
+                const div = document.querySelector(`.${contentList[0]}`)
+                div.style.display = 'block'
+                location.reload()
+              })
+              prepareAllData()
+            }
+
           } else {
             console.log('you need to fill all people')
           }
 
           break;
         }
-        case 3: {
-          console.log('step 3 ==============')
 
-          const eventConainer = document.getElementsByClassName('event')[0]
-          const eventDiv = document.createElement('div')
-          eventDiv.className = 'info bg-black/75 rounded-2xl overflow-hidden'
-          eventDiv.innerHTML = `
+        default: {
+          break
+        }
+      }
+    }
+  })
+}
+
+function prepareAllData() {
+
+
+  const eventConainer = document.getElementsByClassName('event')[0]
+  const particEvent = document.getElementsByClassName('partic-event-p')[0]
+  const eventDiv = document.createElement('div')
+  eventDiv.className = 'info bg-black/75 rounded-2xl overflow-hidden text-white p-5'
+  eventDiv.innerHTML = `
           <img src="${choisenData.cover}" alt="hallowen" class="" />
                 <div class="info w-[75%] text-white p-5">
                   <div>Nom: ${choisenData.name}</div>
@@ -298,15 +324,23 @@ function addEventListenerToBtns() {
                 </div>
                
                 `
-          eventConainer.appendChild(eventDiv)
-          break
-        }
-        default: {
-          break
-        }
-      }
-    }
-  })
+  eventConainer.appendChild(eventDiv)
+
+  for (const p of participList) {
+    console.log("===========:loop inside participList:===========");
+
+    const particDiv = document.createElement("div")
+    particDiv.className = "partic"
+    particDiv.innerHTML = `<div>Nom: ${p.name}</div>
+                  <div>Prenom: ${p.lastName}</div>
+                  <div>E-mail: ${p.email}</div>
+                  <div>Telephone: ${p.mobile}</div>
+                  <hr />`
+    particEvent.appendChild(particDiv)
+  }
+  let totalPrix = document.getElementsByClassName("totalPrix")[0];
+  totalPrix.innerHTML = `Le prix total est: ${participList.length * Number(choisenData.price)}`;
+
 }
 
 function stepColorChanger(type = 1) {
@@ -325,6 +359,6 @@ function stepColorChanger(type = 1) {
   }
 }
 
-function contenTwoNextFunction() {}
+function contenTwoNextFunction() { }
 
 contentOne()
